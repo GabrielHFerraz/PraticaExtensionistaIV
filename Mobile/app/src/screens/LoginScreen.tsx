@@ -11,7 +11,8 @@ const LoginScreen = () => {
     const navigation = useNavigation(); // Hook de navegação
 
     const handleLogin = () => {
-        // Sua lógica de login aqui
+        // @ts-ignore
+        navigation.navigate('HomeScreen');
     };
 
     const goToRegister = () => {
