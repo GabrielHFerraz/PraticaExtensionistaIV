@@ -8,6 +8,7 @@ import ProfileScreen from "@/app/src/screens/ProfileScreen";
 import Sidebar from "@/app/src/components/Sidebar";
 import LoginScreen from "@/app/src/screens/LoginScreen";
 import RegisterScreen from "@/app/src/screens/RegisterScreen";
+import NewQuestionnaires from "@/app/src/screens/NewQuestionnaires";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -19,6 +20,7 @@ const StackNav = () => (
         <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ title: 'Home', headerShown: false}} />
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ title: 'Cadastro', headerStyle: { height: 80 } }} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ title: 'Profile', headerStyle: { height: 80 }}} />
+        <Stack.Screen name="NewQuestionnaires" component={NewQuestionnaires} options={{ title: 'Novo Questionário', headerStyle: { height: 80 },  headerShown: false}} />
     </Stack.Navigator>
 );
 

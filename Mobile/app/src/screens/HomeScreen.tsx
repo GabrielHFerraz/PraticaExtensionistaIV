@@ -4,27 +4,30 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-
-
 const HomeScreen: React.FC = () => {
     const navigation = useNavigation();
+
+    const goToNewQuestionnaires= () => {
+        navigation.navigate('NewQuestionnaires');
+    };
 
     return (
         <View style={styles.container}>
             <View style={styles.navbar}>
-                {/* Ícone para abrir a sidebar */}
                 <TouchableOpacity onPress={() => navigation.openDrawer()}>
                     <Ionicons name="menu" size={28} color="black" />
                 </TouchableOpacity>
 
                 <Text style={styles.title}>Home</Text>
 
-                {/* Ícone de avatar do perfil */}
                 <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen')}>
                     <Ionicons name="person-circle" size={28} color="black" />
                 </TouchableOpacity>
             </View>
 
+            <TouchableOpacity style={styles.fab} onPress={goToNewQuestionnaires}>
+                <Ionicons name="add" size={24} color="white" />
+            </TouchableOpacity>
 
             <Text>Welcome to Home Screen!</Text>
         </View>
@@ -48,6 +51,18 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         fontWeight: 'bold',
+    },
+    fab: {
+        position: 'absolute',
+        bottom: 30,
+        right: 30,
+        backgroundColor: '#158495',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center',
+        elevation: 5,
     },
 });
 
