@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import {TextInput} from "react-native-paper";
+import {Button, TextInput} from "react-native-paper";
 
 const NewQuestionnaires: React.FC = () => {
     const [titulo, setTitulo] = useState('');
@@ -11,19 +11,34 @@ const NewQuestionnaires: React.FC = () => {
     const navigation = useNavigation();
 
     const questions = [
-        { id: '1', question: 'What is your name?' },
-        { id: '2', question: 'How old are you?' },
-        { id: '3', question: 'What is your favorite color?' },
-        { id: '4', question: 'Where do you live?' },
+        { id: '1', description: 'Qual é a sua cor favorita?', type: 'multipleChoice' },
+        { id: '2', description: 'O sol é quente?', type: 'trueFalse' },
     ];
 
+    const handleSave = () => {
+        console.log('Tipo de pergunta:', questionType);
+    };
+
+    const handlePress = ({item}: { item: any }) => {
+        navigation.navigate('NewQuest', {
+            description: item.description,
+            questionType: item.type,
+        });
+    };
+
+    const renderItem = ({ item }) => (
+        <TouchableOpacity onPress={() => handlePress({item: item})} style={styles.itemList}>
+            <Text style={styles.itemText}>{item.description}</Text>
+        </TouchableOpacity>
+    );
 
     const backToHomeScreen = () => {
         navigation.goBack();
     };
 
     const goToNewQuest = () => {
-        navigation.goBack();
+        // @ts-ignore
+        navigation.navigate('NewQuest');
     };
 
     return (
@@ -45,6 +60,7 @@ const NewQuestionnaires: React.FC = () => {
             </TouchableOpacity>
 
             <View style={styles.conteudo}>
+
                 <TextInput
                     mode="flat"
                     label="Título"
@@ -63,16 +79,26 @@ const NewQuestionnaires: React.FC = () => {
                 />
                 <Text style={styles.title} >Perguntas</Text>
 
-                <FlatList
-                    data={questions}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <View style={styles.questionContainer}>
-                            <Text style={styles.questionText}>{item.question}</Text>
-                        </View>
-                    )}
-                />
+                {/* Perguntas do questionário */}
+                <View >
+                    <FlatList
+                        data={questions}
+                        keyExtractor={(item) => item.id}
+                        renderItem={renderItem}
+                    />
+                </View>
+
+                <Button
+                    mode="contained"
+                    onPress={handleSave}
+                    style={styles.saveButton}
+                >
+                    Salvar
+                </Button>
+
             </View>
+
+            {/* Adicionar uma nova pergunta */}
             <TouchableOpacity style={styles.fab} onPress={goToNewQuest}>
                 <Ionicons name="add" size={24} color="white" />
             </TouchableOpacity>
@@ -96,7 +122,6 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 15,
-        fontWeight: 'bold',
     },
     fab: {
         position: 'absolute',
@@ -126,17 +151,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#62AEBA',
         color: '#ffffff'
     },
-    questionContainer: {
-        padding: 15,
-        backgroundColor: 'rgba(166,218,226,0.4)',
-        marginBottom: 5,
-        borderRadius: 15,
-        borderColor: '#62AEBA',
-        borderStyle: 'solid',
-        borderWidth: 1
+
+    itemList: {
+        backgroundColor: 'rgba(98,174,186,0.4)',
+        padding: 16,
+        borderRadius: 8,
+        marginVertical: 2,
+        borderStyle:'solid',
+        borderWidth: 1,
+        borderColor: '#62AEBA'
     },
-    questionText: {
-        fontSize: 18,
+    itemText: {
+        color: '#49454F',
+        fontSize: 16,
+    },
+    saveButton: {
+        marginTop: 24,
+        alignSelf: 'flex-end',
+        backgroundColor: '#62AEBA'
     },
 });
 
