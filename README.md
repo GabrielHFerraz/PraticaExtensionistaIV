@@ -17,7 +17,7 @@ Este projeto tem como objetivo de criar uma plataforma permitindo que organizaç
 ## Tecnologias Utilizadas
 
 - **Frontend**: React.
-- **Mobile:** Android Java;
+- **Mobile:** React Native;
 - **Backend**: Java SpringBoot, com banco de dados PostgreSQL para armazenamento dos questionários e respostas.
 - **Docker:** Rodar o banco de dados e a aplicação;
 
