@@ -6,6 +6,11 @@ Autor: Gabriel Henrique Ferraz da Silva
 
 Este projeto tem como objetivo de criar uma plataforma permitindo que organizações, pesquisadores e educadores possam desenvolver e distribuir questionários de maneira rápida e eficiente. O sistema permite a criação de questionários customizáveis, com perguntas de diferentes formatos (múltipla escolha, respostas curtas, classificações, entre outros), disponibilizando relatório das respostas.
 
+##Diagramas
+
+Para melhor explicação do projeto foi desenvolvido três diagramas, sendo eles um correspondente ao fluxo de deploy do projeto, diagrama de aplicação explicando como funciona as informações desde o principio e outro referente a implantação, para melhor ilustrar esses diagramas foi utilizada a plataforma do Miro, que posisibilita a visualizaçã dos mesmo através do link abaixo:
+https://miro.com/app/board/uXjVKiPNtxw=/?share_link_id=364991852658 
+
 ## Funcionalidades Principais
 
 - Criação de questionários customizáveis com diferentes tipos de perguntas.
