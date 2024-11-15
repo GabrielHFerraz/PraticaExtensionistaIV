@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_15
+    environment:
+      POSTGRES_DB: unoesc
+      POSTGRES_USER: postgres@adm
+      POSTGRES_PASSWORD: postgres@2024
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+
+  spring-app:
+    build:
+      context: .
+    container_name: spring_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_15:5432/unoesc
+      SPRING_DATASOURCE_USERNAME: postgres@adm
+      SPRING_DATASOURCE_PASSWORD: postgres@2024
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - app_network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro  # Monta a configuração personalizada do Nginx
+    ports:
+      - "80:80"  # Expor a porta 80 para acesso externo
+    depends_on:
+      - spring-app
+    networks:
+      - app_network
+volumes:
+  db_data:
+
+networks:
+  app_network:
+    driver: bridge

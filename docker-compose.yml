@@ -1,13 +1,17 @@
+version: '3.8'
+
 services:
-
   db:
-    image: postgres
-    restart: always
-    shm_size: 128mb
-
+    build: .
+    image: postgress
     environment:
-      - POSTGRES_USER= postgres
-      - POSTGRES_PASSWORD= password
-
+      POSTGRES_USER: postgress
+      POSTGRES_PASSWORD: 
+      POSTGRES_DB: meu_banco
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5433:5433"
+      - "5432:5432"
+
+volumes:
+  postgres_data:
