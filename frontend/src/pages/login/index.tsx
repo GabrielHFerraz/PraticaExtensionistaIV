@@ -1,6 +1,8 @@
 import { Box, Button, TextField, Typography, Container } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import logo from '../../assets/logo.png';
+
 
 const theme = createTheme({
   palette: {
@@ -11,10 +13,11 @@ const theme = createTheme({
       main: '#62AEBA',
     },
   },
-});
+});    
 
-export function Login(){
-  return (
+
+export  function Login(){
+  return (        
     <ThemeProvider theme={theme}>
       <Container
         maxWidth="sm"
@@ -23,8 +26,7 @@ export function Login(){
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '100vh',
-          backgroundColor: '#f5f5f5', // Fundo claro
+          height: '100vh', 
         }}
       >
         {/* Imagem */}
@@ -40,7 +42,7 @@ export function Login(){
         <Box
           component="form"
           sx={{
-            width: '100%',
+            width: '60%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -52,7 +54,7 @@ export function Login(){
         >
           <TextField
             label="Usuário"
-            variant="filled"
+            variant="outlined"
             fullWidth
             required
             color="primary"
@@ -60,7 +62,7 @@ export function Login(){
           <TextField
             label="Senha"
             type="password"
-            variant="filled"
+            variant="outlined"
             fullWidth
             required
             color="primary"
@@ -76,7 +78,7 @@ export function Login(){
           </Button>
         </Box>
 
-        {/* Frase para cadastro */}
+        {/*Voltar login */}
         <Typography variant="body2" color="textSecondary">
           Não tem uma conta?{' '}
           <Typography
@@ -86,8 +88,9 @@ export function Login(){
             sx={{
               color: 'secondary.main',
               textDecoration: 'none',
-              '&:hover': { textDecoration: 'underline' },
-            }}
+              '&:hover': { textDecoration: 'underline' },              
+            }} 
+            
           >
             Cadastre-se
           </Typography>
