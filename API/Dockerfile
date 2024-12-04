@@ -8,11 +8,11 @@ COPY pom.xml .
 COPY src ./src
 
 # Compila o projeto e cria o arquivo JAR
-RUN mvn clean package -DskipTests
+RUN mvn clean package
 
 # Etapa 2: Execução da aplicação
 # Usando uma imagem oficial do JDK para executar o jar
-FROM openjdk:17-jdk-slim
+FROM  openjdk:17-jdk-slim
 
 # Define o diretório de trabalho
 WORKDIR /app

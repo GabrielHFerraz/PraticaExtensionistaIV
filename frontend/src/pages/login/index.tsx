@@ -1,7 +1,8 @@
 import { Box, Button, TextField, Typography, Container } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useState } from "react";
 import logo from '../../assets/logo.png';
+import axios from 'axios';
 
 
 const theme = createTheme({
@@ -17,7 +18,43 @@ const theme = createTheme({
 
 
 export  function Login(){
-  return (        
+  const [formData, setFormData] = useState({
+    username: "",
+    password: ""    
+  });
+
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      setError("");
+      setSuccessMessage("");
+
+      const response = await axios.post("http://localhost:8080/api/sigIn", formData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      setSuccessMessage("Usuário criado com sucesso!");
+      console.log("Resposta da API:", response.data);
+
+      // Reseta os campos após o envio
+      setFormData({ username: "", password: "" });
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      setError(
+        error.response?.data?.message || "Ocorreu um erro ao fazer login"
+      );
+    }
+  };
+
+  return (       
     <ThemeProvider theme={theme}>
       <Container
         maxWidth="sm"
@@ -58,6 +95,9 @@ export  function Login(){
             fullWidth
             required
             color="primary"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
           />
           <TextField
             label="Senha"
@@ -66,12 +106,15 @@ export  function Login(){
             fullWidth
             required
             color="primary"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
           />
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            
+            onClick={handleSubmit}
             sx={{ mt: 1 }}
           >
             Entrar
@@ -95,6 +138,21 @@ export  function Login(){
             Cadastre-se
           </Typography>
         </Typography>
+
+        {/* Exibe mensagem de erro */}
+        {error && (
+          <Typography color="error" sx={{ marginTop: 2 }}>
+            {error}
+          </Typography>
+        )}
+
+        {/* Exibe mensagem de sucesso */}
+        {successMessage && (
+          <Typography color="primary" sx={{ marginTop: 2 }}>
+            {successMessage}
+          </Typography>
+        )}
+
       </Container>
     </ThemeProvider>
   );

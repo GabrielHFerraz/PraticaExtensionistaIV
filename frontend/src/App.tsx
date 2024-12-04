@@ -1,21 +1,57 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Sidebar } from "./components/Sidebar";
 import { Dashboard } from "./pages/dashboard";
 import { Questionarios } from "./pages/questionarios";
+import { CreateUser } from "./pages/createUser";
+import { Login } from "./pages/login";
+import NewQuestionnaire from "./pages/newQuestionnaire";
+
+
+const MainLayout = ({ children }: { children: React.ReactNode }) => (
+  <div style={{ display: "flex"}}>
+    <Sidebar />
+    <div style={{ flex: 1, padding: "1rem" }}>
+      {children}
+    </div>
+  </div>
+);
 
 const App = () => {
   return (
     <Router>
-      <div style={{ display: "flex", height: "100vh" }}>
-        <Sidebar/>
-  
-        <div style={{ flex: 1, padding: "1rem", backgroundColor:"#E3E3E3", borderRadius: 15}}>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />            
-            <Route path="/questionarios" element={<Questionarios />} />            
-          </Routes>
-        </div>
-      </div>
+      <Routes>
+        {/* Rotas com layout */}
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Dashboard />              
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/questionarios"
+          element={
+            <MainLayout>
+              <Questionarios />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/newquestionnaire"
+          element={
+            <MainLayout>
+              <NewQuestionnaire />              
+            </MainLayout>
+          }
+        />
+
+        {/* Rotas sem layout */}
+        <Route path="/createuser" element={<CreateUser />} />     
+        <Route path="/login" element={<Login />} />             
+      
+
+      </Routes>
     </Router>
   );
 };
