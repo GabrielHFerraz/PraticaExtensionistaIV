@@ -1,6 +1,9 @@
 # Usar a imagem base do Node.js
 FROM node:22 AS build
 
+# Adicionar o nome da imagem
+LABEL image_name="frontend-react"
+
 # Configurar diretório de trabalho
 WORKDIR /app
 
