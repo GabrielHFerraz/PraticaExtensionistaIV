@@ -25,3 +25,16 @@ Este projeto tem como objetivo de criar uma plataforma permitindo que organizaç
 
 Para melhor explicação do projeto foi desenvolvido três diagramas, sendo eles um correspondente ao fluxo de deploy do projeto, diagrama de aplicação explicando como funciona as informações desde o principio e outro referente a implantação, para melhor ilustrar esses diagramas foi utilizada a plataforma do Miro, que possibilita a visualização dos mesmo através do link abaixo:  <br/>
 https://miro.com/app/board/uXjVKiPNtxw=/?share_link_id=364991852658 
+
+## Rodar o Projeto
+
+Neste projeto vamos utilizar algumas ferramentas que necessitam ser configuradas, para facilitar este processo foi utilizado o Docker, sendo assim na raíz do projeto existe um arquivo chamado docker-compose.yml, esse arquivo possui as configurações necessárias para subir a aplicação por completo, basta possuir o docker instalado na máquina e o docker-compose.
+
+## Passo-a-passo para rodar o projeto
+1 - Fazer o clone do repositório
+
+Pré Requisito: Ter o docker e docker-compose em funcionamento.
+2 - Navegar até a pasta raiz do projeto PraticaExtensionistaIV e rodar o comando:
+  docker compose up -d 
+
+Este comando vai executar o build tanto do frontend quanto do backend e criar os seus respectivos containers, além disso possui o nginx configurado como proxy reverso, desta forma rodando o docker compose, vamos ter a aplicação pronta para ser publicada em uma VPS por exemplo. 
