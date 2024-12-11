@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import {
   TextField,
@@ -19,7 +19,7 @@ export function CreateUser() {
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
@@ -36,7 +36,7 @@ export function CreateUser() {
 
       // Reseta os campos após o envio
       setFormData({ name: "", email: "", password: "", username:"" });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao criar usuário:", error);
       setError(
         error.response?.data?.message || "Ocorreu um erro ao criar o usuário."

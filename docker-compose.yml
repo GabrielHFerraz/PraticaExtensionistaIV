@@ -31,6 +31,16 @@ services:
     networks:
       - app_network
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend    
+    ports:
+      - "3000:8081"
+    networks:
+      - app_network
+
   nginx:
     image: nginx:latest
     container_name: nginx_proxy

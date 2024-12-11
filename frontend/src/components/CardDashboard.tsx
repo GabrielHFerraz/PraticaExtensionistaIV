@@ -1,6 +1,8 @@
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
-export function CardDashboard({ valor, percentage,  labelText }) {
+interface CardDashboardProps { valor: number; labelText: string}
+
+export function CardDashboard({ valor,   labelText }: CardDashboardProps)  {
 
   return (
     <Card

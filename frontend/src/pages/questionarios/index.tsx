@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 import {
   Box,
   TextField,
@@ -15,6 +16,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 
+// Definindo o tipo QuestionarioItem 
+interface QuestionarioItem {
+  id: number;
+  cd: number;
+  titulo: string;
+  descr: string;
+}
+
 const StyledFab = styled(Fab)({
   position: 'fixed',
   bottom: 20,
@@ -28,33 +37,28 @@ const StyledFab = styled(Fab)({
 
 export function Questionarios() {
   const [search, setSearch] = useState('');
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      title: 'Feedback Clientes',
-      description: 'Enviar para clientes',
-    },
-    {
-      id: 2,
-      title: 'Nome Questionário',
-      description: 'Descrição',
-    },
-    {
-      id: 3,
-      title: 'Nome Questionário',
-      description: 'Descrição',
-    },
-  ]);
-
-  const filteredItems = items.filter((item) =>
-    item.title.toLowerCase().includes(search.toLowerCase())
-  );
-
+  const [items, setItems] = useState<QuestionarioItem[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<QuestionarioItem[]>('http://localhost:8080/api/questionnaries');  
+        setItems(response.data);
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const handleAddQuestionario = () => {
     navigate('/newquestionnaire'); 
   };
+
+  const filteredItems = items.filter((item) =>
+    item.titulo.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <Box sx={{ padding: 2 }}>    
@@ -91,12 +95,12 @@ export function Questionarios() {
             <ListItemText
               primary={
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                  {item.title}
+                  {item.titulo}
                 </Typography>
               }
               secondary={
                 <Typography variant="body2" sx={{ color: '#555' }}>
-                  {item.description}
+                  {item.descr}
                 </Typography>
               }
             />
@@ -106,15 +110,14 @@ export function Questionarios() {
 
       {/* Botão Flutuante */}
       <StyledFab>
-      <Fab     
-        sx={{ position: 'fixed', bottom: 20, right: 20 }}
-        onClick={handleAddQuestionario}
-      >
-        <AddIcon />
-      </Fab>
+        <Fab     
+          sx={{ position: 'fixed', bottom: 20, right: 20 }}
+          onClick={handleAddQuestionario}
+        >
+          <AddIcon />
+        </Fab>
       </StyledFab>
       
     </Box>
   );
-};
-
+}

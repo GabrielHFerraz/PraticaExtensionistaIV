@@ -1,9 +1,10 @@
+import { ChangeEvent, useState } from 'react';
 import { Box, Button, TextField, Typography, Container } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useState } from "react";
+import axios from 'axios'; // Importa o Axios
 import logo from '../../assets/logo.png';
-import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
+import { FormEvent } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -14,47 +15,40 @@ const theme = createTheme({
       main: '#62AEBA',
     },
   },
-});    
+});
 
+export function Login() {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ username: '', password: '' });
+  const [errorMessage, setErrorMessage] = useState('');
 
-export  function Login(){
-  const [formData, setFormData] = useState({
-    username: "",
-    password: ""    
-  });
-
-  const [error, setError] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
-    try {
-      setError("");
-      setSuccessMessage("");
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Previne o comportamento padrão do formulário
 
-      const response = await axios.post("http://localhost:8080/api/sigIn", formData, {
+    try {
+      const response = await axios.post('http://localhost:8080/api/sigIn', formData, {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
-      setSuccessMessage("Usuário criado com sucesso!");
-      console.log("Resposta da API:", response.data);
 
-      // Reseta os campos após o envio
-      setFormData({ username: "", password: "" });
-    } catch (error) {
-      console.error("Erro ao fazer login:", error);
-      setError(
-        error.response?.data?.message || "Ocorreu um erro ao fazer login"
-      );
+      console.log('Login successful:', response.data);
+      navigate("/");
+
+      // Tratar login bem-sucedido aqui, como redirecionamento
+    } catch (error: any) {
+      console.error('Error:', error);
+      const message = error.response?.data?.message || 'Login failed. Please check your credentials.';
+      setErrorMessage(message);
     }
   };
 
-  return (       
+  return (
     <ThemeProvider theme={theme}>
       <Container
         maxWidth="sm"
@@ -63,7 +57,7 @@ export  function Login(){
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: '100vh', 
+          height: '100vh',
         }}
       >
         {/* Imagem */}
@@ -78,6 +72,7 @@ export  function Login(){
         {/* Formulário */}
         <Box
           component="form"
+          onSubmit={handleSubmit}       
           sx={{
             width: '60%',
             display: 'flex',
@@ -86,8 +81,6 @@ export  function Login(){
             gap: 2,
             mb: 2,
           }}
-          noValidate
-          autoComplete="off"
         >
           <TextField
             label="Usuário"
@@ -114,14 +107,20 @@ export  function Login(){
             type="submit"
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
             sx={{ mt: 1 }}
           >
             Entrar
           </Button>
         </Box>
 
-        {/*Voltar login */}
+        {/* Mensagem de erro */}
+        {errorMessage && (
+          <Typography variant="body2" color="error" sx={{ mt: 2 }}>
+            {errorMessage}
+          </Typography>
+        )}
+
+        {/* Voltar login */}
         <Typography variant="body2" color="textSecondary">
           Não tem uma conta?{' '}
           <Typography
@@ -131,29 +130,13 @@ export  function Login(){
             sx={{
               color: 'secondary.main',
               textDecoration: 'none',
-              '&:hover': { textDecoration: 'underline' },              
-            }} 
-            
+              '&:hover': { textDecoration: 'underline' },
+            }}
           >
             Cadastre-se
           </Typography>
         </Typography>
-
-        {/* Exibe mensagem de erro */}
-        {error && (
-          <Typography color="error" sx={{ marginTop: 2 }}>
-            {error}
-          </Typography>
-        )}
-
-        {/* Exibe mensagem de sucesso */}
-        {successMessage && (
-          <Typography color="primary" sx={{ marginTop: 2 }}>
-            {successMessage}
-          </Typography>
-        )}
-
       </Container>
     </ThemeProvider>
   );
-};
+}
