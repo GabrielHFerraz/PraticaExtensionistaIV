@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Box,
@@ -16,7 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
 
-// Definindo o tipo QuestionarioItem
+// Definindo o tipo QuestionarioItem 
 interface QuestionarioItem {
   id: number;
   cd: number;
@@ -56,6 +56,10 @@ export function Questionarios() {
     navigate('/newquestionnaire'); 
   };
 
+  const filteredItems = items.filter((item) =>
+    item.titulo.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <Box sx={{ padding: 2 }}>    
 
@@ -75,7 +79,7 @@ export function Questionarios() {
 
       {/* Lista */}
       <List>
-        {items.map((item) => (
+        {filteredItems.map((item) => (
           <ListItem
             key={item.id}
             sx={{

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Box, Button, TextField, Typography, Container } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios'; // Importa o Axios
 import logo from '../../assets/logo.png';
-import { Navigate, useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import { FormEvent } from 'react';
 
 const theme = createTheme({
   palette: {
@@ -21,12 +22,12 @@ export function Login() {
   const [formData, setFormData] = useState({ username: '', password: '' });
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Previne o comportamento padrão do formulário
 
     try {
@@ -40,7 +41,7 @@ export function Login() {
       navigate("/");
 
       // Tratar login bem-sucedido aqui, como redirecionamento
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error:', error);
       const message = error.response?.data?.message || 'Login failed. Please check your credentials.';
       setErrorMessage(message);
@@ -71,7 +72,7 @@ export function Login() {
         {/* Formulário */}
         <Box
           component="form"
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit}       
           sx={{
             width: '60%',
             display: 'flex',
@@ -80,8 +81,6 @@ export function Login() {
             gap: 2,
             mb: 2,
           }}
-          noValidate
-          autoComplete="off"
         >
           <TextField
             label="Usuário"
