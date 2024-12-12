@@ -22,7 +22,7 @@ const App = () => {
       <Routes>
         {/* Rotas com layout */}
         <Route
-          path="/"
+          path="/dashboard"
           element={
             <MainLayout>
               <Dashboard />              
@@ -48,7 +48,7 @@ const App = () => {
 
         {/* Rotas sem layout */}
         <Route path="/createuser" element={<CreateUser />} />     
-        <Route path="/login" element={<Login />} />             
+        <Route path="/" element={<Login />} />             
       
 
       </Routes>

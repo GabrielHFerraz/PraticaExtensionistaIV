@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import {
   Box,
   TextField,
@@ -11,9 +11,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddIcon from '@mui/icons-material/Add';
 import { styled } from '@mui/system';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const NewQuestionnaire: React.FC = () => {
   const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    titulo: "",
+    descr: "",
+    cd: ""
+  });
 
   const StyledFab = styled(Fab)({
     position: 'fixed',
@@ -26,19 +32,31 @@ const NewQuestionnaire: React.FC = () => {
     },
   });
 
-  const [titulo, setTitulo] = useState('');
-  const [descricao, setDescricao] = useState('');
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
+  };
 
-  const handleSave = () => {
-    // Lógica para salvar o questionário (aqui você pode enviar os dados para o backend)
-    const novoQuestionario = { titulo, descricao };
-    console.log('Novo Questionário:', novoQuestionario);
-    navigate('/'); // Volta para a página principal
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:8080/api/questionnaries', formData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Login successful:', response.data);
+      navigate("/");
+
+    } catch (error: any) {
+      console.error('Error:', error);
+    }
   };
 
   return (
     <Box sx={{ padding: 2 }}>
-      {/* Botão de Voltar */}
       <IconButton onClick={() => navigate('/questionarios')}>
         <ArrowBackIcon />
       </IconButton>
@@ -47,45 +65,59 @@ const NewQuestionnaire: React.FC = () => {
         Novo Questionário
       </Typography>
 
-      {/* Campo Título */}
-      <TextField
-        fullWidth
-        label="Título"
-        variant="outlined"
-        value={titulo}
-        onChange={(e) => setTitulo(e.target.value)}
-        sx={{ mb: 2, backgroundColor: '#E0F7FA', width:"50%"}}
-      />
+      <form onSubmit={handleSubmit}>
+        {/* Campo Código */}
+        <TextField
+          fullWidth
+          label="Código"
+          name="cd" 
+          variant="outlined"
+          value={formData.cd}
+          onChange={handleChange}
+          sx={{ mb: 2, backgroundColor: '#E0F7FA', width: "50%" }}
+        />
 
-      {/* Campo Descrição */}
-      <TextField
-        fullWidth
-        label="Descrição"
-        variant="outlined"
-        value={descricao}
-        onChange={(e) => setDescricao(e.target.value)}
-        sx={{ mb: 2, backgroundColor: '#E0F7FA'}}
-      />
- 
-      {/* Botão Salvar */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleSave}
-        sx={{
-          backgroundColor: '#008080',
-          color: '#fff',
-          '&:hover': { backgroundColor: '#006666' },
-        }}
-      >
-        Salvar
-      </Button>
+        {/* Campo Título */}
+        <TextField
+          fullWidth
+          label="Título"
+          name="titulo" 
+          variant="outlined"
+          value={formData.titulo}
+          onChange={handleChange}
+          sx={{ mb: 2, backgroundColor: '#E0F7FA', width: "50%" }}
+        />
 
+        {/* Campo Descrição */}
+        <TextField
+          fullWidth
+          label="Descrição"
+          name="descr" 
+          variant="outlined"
+          value={formData.descr}
+          onChange={handleChange}
+          sx={{ mb: 2, backgroundColor: '#E0F7FA' }}
+        />
+
+        {/* Botão Salvar */}
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          sx={{
+            backgroundColor: '#008080',
+            color: '#fff',
+            '&:hover': { backgroundColor: '#006666' },
+          }}
+        >
+          Salvar
+        </Button>
+      </form>
 
       {/* Botão Flutuante */}
       <StyledFab>
-        <Fab     
-          sx={{ position: 'fixed', bottom: 20, right: 20 }}          
+        <Fab
+          sx={{ position: 'fixed', bottom: 20, right: 20 }}
         >
           <AddIcon />
         </Fab>

@@ -7,8 +7,11 @@ import {
   Box,
   Container,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export function CreateUser() {
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,6 +26,10 @@ export function CreateUser() {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
+
+  const navToLogin = () => {
+    navigate('/');
+  }
 
   // Envia os dados para a API
   const handleSubmit = async () => {
@@ -147,6 +154,7 @@ export function CreateUser() {
         <Typography variant="body2" color="textSecondary" sx={{ mt: 1 }}>
           Já tem uma conta?{" "}
           <Typography
+            onClick={navToLogin}
             component="a"
             href="#"
             variant="body2"
