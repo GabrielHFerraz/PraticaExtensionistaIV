@@ -90,20 +90,20 @@ export function Questionarios() {
             }}
           >
             <ListItemAvatar>
-              <Avatar sx={{ backgroundColor: '#008080' }}>A</Avatar>
+              <Avatar sx={{ backgroundColor: '#008080' }}>{item.cd}</Avatar>
             </ListItemAvatar>
             <ListItemText
               primary={
                 <Typography variant="subtitle1" sx={{ fontWeight: 'bold' }}>
-                  {item.titulo}
-                </Typography>
+                  {item.titulo}                  
+                </Typography>                
               }
               secondary={
                 <Typography variant="body2" sx={{ color: '#555' }}>
                   {item.descr}
                 </Typography>
-              }
-            />
+              }              
+            />            
           </ListItem>
         ))}
       </List>

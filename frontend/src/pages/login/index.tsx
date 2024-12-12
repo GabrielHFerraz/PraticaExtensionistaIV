@@ -27,6 +27,10 @@ export function Login() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const navToCreateUser = () => {
+    navigate('/createuser');
+  }
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Previne o comportamento padrão do formulário
 
@@ -38,7 +42,7 @@ export function Login() {
       });
 
       console.log('Login successful:', response.data);
-      navigate("/");
+      navigate("/dashboard");
 
       // Tratar login bem-sucedido aqui, como redirecionamento
     } catch (error: any) {
@@ -121,9 +125,10 @@ export function Login() {
         )}
 
         {/* Voltar login */}
-        <Typography variant="body2" color="textSecondary">
+        <Typography variant="body2" color="textSecondary">          
           Não tem uma conta?{' '}
           <Typography
+          onClick={navToCreateUser}
             component="a"
             href="#"
             variant="body2"
