@@ -48,7 +48,7 @@ const NewQuestionnaire: React.FC = () => {
       });
 
       console.log('Login successful:', response.data);
-      navigate("/");
+      navigate("/questionarios");
 
     } catch (error: any) {
       console.error('Error:', error);
