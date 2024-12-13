@@ -35,7 +35,7 @@ export function Login() {
     e.preventDefault(); // Previne o comportamento padrão do formulário
 
     try {
-      const response = await axios.post('http://localhost:8080/api/sigIn', formData, {
+      const response = await axios.post('http://application-api.online:8080/api/sigIn', formData, {
         headers: {
           'Content-Type': 'application/json',
         },

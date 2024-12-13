@@ -43,7 +43,7 @@ export function Questionarios() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<QuestionarioItem[]>('http://localhost:8080/api/questionnaries');  
+        const response = await axios.get<QuestionarioItem[]>('http://application-api.online:8080/api/questionnaries');  
         setItems(response.data);
       } catch (error) {
         console.error('Erro ao buscar dados:', error);

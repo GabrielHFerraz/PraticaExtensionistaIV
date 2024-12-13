@@ -37,7 +37,7 @@ export function CreateUser() {
       setError("");
       setSuccessMessage("");
 
-      const response = await axios.post("http://localhost:8080/api/createUser", formData);
+      const response = await axios.post("http://application-api.online:8080/api/createUser", formData);
       setSuccessMessage("Usuário criado com sucesso!");
       console.log("Resposta da API:", response.data);
 

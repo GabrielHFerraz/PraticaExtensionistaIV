@@ -41,7 +41,7 @@ const NewQuestionnaire: React.FC = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/questionnaries', formData, {
+      const response = await axios.post('http://application-api.online:8080/api/questionnaries', formData, {
         headers: {
           'Content-Type': 'application/json',
         },
