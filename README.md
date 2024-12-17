@@ -26,6 +26,9 @@ Este projeto tem como objetivo de criar uma plataforma permitindo que organizaç
 Para melhor explicação do projeto foi desenvolvido três diagramas, sendo eles um correspondente ao fluxo de deploy do projeto, diagrama de aplicação explicando como funciona as informações desde o principio e outro referente a implantação, para melhor ilustrar esses diagramas foi utilizada a plataforma do Miro, que possibilita a visualização dos mesmo através do link abaixo:  <br/>
 https://miro.com/app/board/uXjVKiPNtxw=/?share_link_id=364991852658 
 
+## Protótipo no figma
+https://www.figma.com/design/BfwgEbJGflkFQgtZpGByql/App-Question%C3%A1rio?node-id=0-1&t=Q5Lk9eKct8DQnzIx-1
+
 ## Rodar o Projeto
 
 Neste projeto vamos utilizar algumas ferramentas que necessitam ser configuradas, para facilitar este processo foi utilizado o Docker, sendo assim na raíz do projeto existe um arquivo chamado docker-compose.yml, esse arquivo possui as configurações necessárias para subir a aplicação por completo, basta possuir o docker instalado na máquina e o docker-compose.
