@@ -29,6 +29,9 @@ https://miro.com/app/board/uXjVKiPNtxw=/?share_link_id=364991852658
 ## Protótipo no figma
 https://www.figma.com/design/BfwgEbJGflkFQgtZpGByql/App-Question%C3%A1rio?node-id=0-1&t=Q5Lk9eKct8DQnzIx-1
 
+## Link da apresentação
+https://www.canva.com/design/DAGZe4gSu_o/c5ELnG_QhuKNf4TPD8gAIg/edit?utm_content=DAGZe4gSu_o&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
+
 ## Rodar o Projeto
 
 Neste projeto vamos utilizar algumas ferramentas que necessitam ser configuradas, para facilitar este processo foi utilizado o Docker, sendo assim na raíz do projeto existe um arquivo chamado docker-compose.yml, esse arquivo possui as configurações necessárias para subir a aplicação por completo, basta possuir o docker instalado na máquina e o docker-compose.
